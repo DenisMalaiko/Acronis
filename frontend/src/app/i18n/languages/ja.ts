@@ -1,5 +1,4 @@
 export const ja = {
-  hello: 'こんにちは世界',
   General: {
     Search: '検索',
     PartnerID: 'パートナーID',
@@ -13,6 +12,7 @@ export const ja = {
     Prev: '前へ',
     Next: '次へ',
     Back: '戻る',
+    Retry: '再試行',
     Loading: '読み込み中',
     UnhandledError: '未処理のエラー'
   },

@@ -7,6 +7,7 @@ export const useDealsStore = defineStore('deals', {
   state: () => ({
     deals: [] as Deal[],
     deal: {} as Deal | null,
+    lastFetched: null as number | null,
 
     loading: false as boolean,
     error: null as any
@@ -14,6 +15,23 @@ export const useDealsStore = defineStore('deals', {
 
   actions: {
     async fetchDeals() {
+      const now = Date.now();
+
+      console.group("------------")
+      console.log("FETCH DEALS...")
+
+      if (this.loading) return;
+
+      if (this.lastFetched && now - this.lastFetched < 10000) {
+        console.log("DEALS ALREADY FETCHED")
+        console.groupEnd()
+
+        return this.deals;
+      }
+
+      console.log("START FETCHING DEALS...")
+      console.groupEnd()
+
       const { getDeals } = useDealsApi();
       this.loading = true;
       this.error = null;
@@ -21,6 +39,7 @@ export const useDealsStore = defineStore('deals', {
       try {
         const deals = await getDeals();
         this.deals = deduplicateDeals(deals);
+        this.lastFetched = now;
       } catch (error) {
         this.error = error;
         throw error;

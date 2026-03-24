@@ -1,9 +1,9 @@
 import { getAllDeals, getSingleDealById } from '../services/deals.service.js';
 import { Deal } from '../shared/entities/deal.entity.js';
 
-export const getDeals = (req: any, res: any) => {
+export const getDeals = async (req: any, res: any) => {
   try {
-    const data: Deal[] = getAllDeals();
+    const data: Deal[] = await getAllDeals();
 
     if (!data) {
       return sendResponse(res, 404, { message: 'Deals not found' })
@@ -15,13 +15,13 @@ export const getDeals = (req: any, res: any) => {
   }
 };
 
-export const getDealById = (req: any, res: any, id: string) => {
+export const getDealById = async (req: any, res: any, id: string) => {
   try {
     if (!id || typeof id !== 'string') {
       return sendResponse(res, 400, { message: 'Invalid ID' })
     }
 
-    const data: Deal | undefined = getSingleDealById(id);
+    const data: Deal | undefined = await getSingleDealById(id);
 
     if (!data) {
       return sendResponse(res, 404, { message: 'Deal not found' })

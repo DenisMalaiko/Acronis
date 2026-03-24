@@ -1,5 +1,4 @@
 export const en = {
-  hello: 'Hello World',
   General: {
     Search: 'Search',
     PartnerID: 'Partner ID',
@@ -13,6 +12,7 @@ export const en = {
     Prev: 'Prev',
     Next: 'Next',
     Back: 'Back',
+    Retry: 'Retry',
     Loading: 'Loading',
     UnhandledError: 'Unhandled error',
   },

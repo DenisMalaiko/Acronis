@@ -42,6 +42,19 @@ const getStatusColor = (status: DealStatus) => {
   }
 }
 
+const retry = async () => {
+  try {
+    const dealId = router.currentRoute.value.params.id;
+    await dealsStore.fetchDealById(dealId as string);
+  } catch (error) {
+    if (error instanceof Error) {
+      $toast.error(error.message);
+    } else {
+      $toast.error(t('General.UnhandledError'));
+    }
+  }
+}
+
 onMounted(async () => {
   try {
     const dealId = router.currentRoute.value.params.id;
@@ -95,6 +108,13 @@ onMounted(async () => {
         class="mt-4 px-4 py-2 border rounded-lg hover:bg-gray-100 cursor-pointer"
       >
         {{ t('General.Back') }}
+      </button>
+
+      <button
+        @click="retry"
+        class="mt-4 px-4 py-2 border rounded-lg hover:bg-gray-100 cursor-pointer"
+      >
+        {{ t('General.Retry') }}
       </button>
     </div>
 

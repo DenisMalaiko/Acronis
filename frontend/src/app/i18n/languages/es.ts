@@ -1,5 +1,4 @@
 export const es = {
-  hello: 'Hola Mundo',
   General: {
     Search: 'Buscar',
     PartnerID: 'ID del socio',
@@ -13,6 +12,7 @@ export const es = {
     Prev: 'Anterior',
     Next: 'Siguiente',
     Back: 'Volver',
+    Retry: 'Reintentar',
     Loading: 'Cargando',
     UnhandledError: 'Error no controlado'
   },

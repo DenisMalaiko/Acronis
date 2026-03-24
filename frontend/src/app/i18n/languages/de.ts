@@ -1,5 +1,4 @@
 export const de = {
-  hello: 'Hallo Welt',
   General: {
     Search: 'Suche',
     PartnerID: 'Partner-ID',
@@ -13,6 +12,7 @@ export const de = {
     Prev: 'Zurück',
     Next: 'Weiter',
     Back: 'Zurück',
+    Retry: 'Erneut versuchen',
     Loading: 'Laden',
     UnhandledError: 'Unbehandelter Fehler'
   },

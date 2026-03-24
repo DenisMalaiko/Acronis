@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, computed, watch } from 'vue'
+import { onMounted, onUnmounted, ref, computed, watch } from 'vue'
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { useDealsStore, useUsersStore } from "../../../app/store";
@@ -31,6 +31,7 @@ const router = useRouter();
 
 // Data
 const search = ref('');
+const pollingTime = ref(60000);
 const filters = ref<Filters>({
   statuses: [],
   amount: { min: null, max: null},
@@ -38,13 +39,13 @@ const filters = ref<Filters>({
 });
 const pageSize = ref(10);
 const $toast = useToast();
+let interval: any;
 
 
 // Computed
-const deals = computed(() => {
-  return dealsStore.deals;
-});
-
+const deals = computed(() => dealsStore.deals);
+const loading = computed(() => dealsStore.loading);
+const error = computed(() => dealsStore.error);
 const user = computed(() => usersStore.user);
 
 const header = computed(() => [
@@ -124,12 +125,37 @@ const handleRowClick = (deal: Deal) => {
   router.push(`/deals/${deal.id}`);
 };
 
-const handleSearch = () => {
-  console.log('search:', search.value)
-  // FETCH TO SERVER
+const handleSearch = async () => {
+  console.group("------------")
+  console.log("SEARCHING...")
+  console.groupEnd()
+  try {
+    await dealsStore.fetchDeals();
+  } catch (error) {
+    if (error instanceof Error) {
+      $toast.error(error.message);
+    } else {
+      $toast.error(t('General.UnhandledError'));
+    }
+  }
 }
 
-const debouncedSearch = useDebounceFn(handleSearch, 300)
+const retry = async () => {
+  try {
+    console.group("------------")
+    console.log("RETRYING...")
+    console.groupEnd()
+    await dealsStore.fetchDeals();
+  } catch (error) {
+    if (error instanceof Error) {
+      $toast.error(error.message);
+    } else {
+      $toast.error(t('General.UnhandledError'));
+    }
+  }
+};
+
+const debouncedSearch = useDebounceFn(handleSearch, 500)
 
 const clearFilters = () => {
   filters.value = {
@@ -153,6 +179,9 @@ watch(search, () => {
 
 onMounted(async () => {
   try {
+    console.group("------------")
+    console.log("MOUNTED...")
+    console.groupEnd()
     await dealsStore.fetchDeals();
   } catch (error) {
     if (error instanceof Error) {
@@ -161,6 +190,25 @@ onMounted(async () => {
       $toast.error(t('General.UnhandledError'));
     }
   }
+
+  interval = setInterval(async () => {
+    try {
+      console.group("------------")
+      console.log("POLLING...")
+      console.groupEnd()
+      await dealsStore.fetchDeals();
+    } catch (error) {
+      if (error instanceof Error) {
+        $toast.error(error.message);
+      } else {
+        $toast.error(t('General.UnhandledError'));
+      }
+    }
+  }, pollingTime.value);
+});
+
+onUnmounted(() => {
+  clearInterval(interval);
 });
 </script>
 
@@ -182,8 +230,30 @@ onMounted(async () => {
       @clear="clearFilters"
     ></DealsFilter>
 
+    <!-- Loading -->
+    <div v-if="loading" class="text-gray-500 w-full text-center">
+      {{ t('General.Loading') }}...
+    </div>
+
+    <!--  Error -->
+    <div
+      v-else-if="error"
+      class="bg-red-50 border border-red-200 rounded-xl p-6 text-center"
+    >
+      <p class="text-red-600 font-medium">
+        {{ error }}
+      </p>
+
+      <button
+        @click="retry"
+        class="mt-4 px-4 py-2 border rounded-lg hover:bg-gray-100 cursor-pointer"
+      >
+        {{ t('General.Retry') }}
+      </button>
+    </div>
+
     <!-- Table -->
-    <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+    <div v-else-if="deals" class="bg-white border border-gray-200 rounded-xl overflow-hidden">
       <AppTable
         :header="header"
         :items="filteredDeals"
