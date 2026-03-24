@@ -3,6 +3,7 @@ import { onMounted, computed } from 'vue'
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { useDealsStore } from "../../../app/store";
+import { useToast } from "vue-toastification";
 
 // Components
 import AppChip from "../../../shared/components/chip/AppChip.vue";
@@ -17,6 +18,7 @@ import { toDate } from "../../../shared/utils/ToDate";
 const { t } = useI18n();
 const dealsStore = useDealsStore();
 const router = useRouter();
+const $toast = useToast();
 
 
 const deal = computed(() => dealsStore.deal);
@@ -40,15 +42,23 @@ const getStatusColor = (status: DealStatus) => {
   }
 }
 
-onMounted(() => {
-  const dealId = router.currentRoute.value.params.id;
-  dealsStore.fetchDealById(dealId as string);
+onMounted(async () => {
+  try {
+    const dealId = router.currentRoute.value.params.id;
+    await dealsStore.fetchDealById(dealId as string);
+  } catch (error) {
+    if (error instanceof Error) {
+      $toast.error(error.message);
+    } else {
+      $toast.error(t('General.UnhandledError'));
+    }
+  }
 })
 
 </script>
 
 <template>
-  <div class="p-6 space-y-6">
+  <div class="p-0 sm:p-6 space-y-4 sm:space-y-6">
 
     <!-- Header -->
     <div class="flex items-center gap-4">
@@ -56,7 +66,7 @@ onMounted(() => {
         @click="goBack"
         class="px-3 py-1 border rounded-lg text-sm hover:bg-gray-100 cursor-pointer"
       >
-        ← Back
+        ← {{ t('General.Back') }}
       </button>
 
       <div>
@@ -68,7 +78,7 @@ onMounted(() => {
 
     <!-- Loading -->
     <div v-if="loading" class="text-gray-500">
-      Loading...
+      {{ t('General.Loading') }}...
     </div>
 
     <!--  Error -->
@@ -77,14 +87,14 @@ onMounted(() => {
       class="bg-red-50 border border-red-200 rounded-xl p-6 text-center"
     >
       <p class="text-red-600 font-medium">
-        Deal not found
+        {{ t('DealsView.NotFound') }}
       </p>
 
       <button
         @click="goBack"
         class="mt-4 px-4 py-2 border rounded-lg hover:bg-gray-100 cursor-pointer"
       >
-        Go back
+        {{ t('General.Back') }}
       </button>
     </div>
 
@@ -95,17 +105,17 @@ onMounted(() => {
     >
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <p class="text-sm text-gray-500">Deal Name</p>
+          <p class="text-sm text-gray-500">{{ t('General.DealName') }}</p>
           <p class="font-medium">{{ deal?.name }}</p>
         </div>
 
         <div>
-          <p class="text-sm text-gray-500">Account</p>
+          <p class="text-sm text-gray-500">{{ t('General.AccountName') }}</p>
           <p class="font-medium">{{ deal?.accountName }}</p>
         </div>
 
         <div>
-          <p class="text-sm text-gray-500">Status</p>
+          <p class="text-sm text-gray-500">{{ t('General.Status') }}</p>
           <span v-if="deal?.status">
             <AppChip
               :value="deal?.status"
@@ -115,12 +125,12 @@ onMounted(() => {
         </div>
 
         <div>
-          <p class="text-sm text-gray-500">Amount</p>
+          <p class="text-sm text-gray-500">{{ t('General.Amount') }}</p>
           <p class="font-medium">${{ deal?.amount }}</p>
         </div>
 
         <div>
-          <p class="text-sm text-gray-500">Created At</p>
+          <p class="text-sm text-gray-500">{{ t('General.CreatedAt') }}</p>
           <p class="font-medium">
             <span v-if="deal?.createdAt">
               {{ toDate(deal?.createdAt) }}

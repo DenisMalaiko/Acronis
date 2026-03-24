@@ -1,9 +1,34 @@
 export const ja = {
   hello: 'こんにちは世界',
+  General: {
+    Search: '検索',
+    PartnerID: 'パートナーID',
+    DealName: '取引名',
+    AccountName: 'アカウント名',
+    Status: 'ステータス',
+    Amount: '金額',
+    CreatedAt: '作成日',
+    Pages: 'ページ',
+    Of: 'の',
+    Prev: '前へ',
+    Next: '次へ',
+    Back: '戻る',
+    Loading: '読み込み中',
+    UnhandledError: '未処理のエラー'
+  },
   DealsList: {
-    Title: '案件一覧'
+    SearchPlaceholder: '取引を検索...',
+    Title: '取引一覧',
+    Statuses: 'ステータス',
+    Amount: '金額',
+    MinAmount: '最小',
+    MaxAmount: '最大',
+    Dates: '日付',
+    Filters: 'フィルター',
+    ClearFilters: 'フィルターをクリア'
   },
   DealsView: {
-    Title: '案件詳細'
+    Title: '取引詳細',
+    NotFound: '取引が見つかりません'
   }
-};
+}

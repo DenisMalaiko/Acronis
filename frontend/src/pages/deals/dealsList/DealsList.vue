@@ -2,8 +2,9 @@
 import { onMounted, ref, computed, watch } from 'vue'
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
-import { useDealsStore } from "../../../app/store";
+import { useDealsStore, useUsersStore } from "../../../app/store";
 import { useDebounceFn } from '@vueuse/core';
+import { useToast } from "vue-toastification";
 
 // Components
 import AppTable from "../../../shared/components/table/AppTable.vue";
@@ -20,10 +21,12 @@ import { DealStatus } from "../../../shared/enums/DealStatus";
 // Utils
 import { toDate } from "../../../shared/utils/ToDate";
 import { truncateMiddle } from "../../../shared/utils/TruncateMiddle.ts";
+import { UserRoles } from "../../../shared/enums/UserRoles.ts";
 
 // Init
 const { t } = useI18n();
 const dealsStore = useDealsStore();
+const usersStore = useUsersStore();
 const router = useRouter();
 
 // Data
@@ -34,24 +37,39 @@ const filters = ref<Filters>({
   date: { from: null, to: null }
 });
 const pageSize = ref(10);
-const header = [
-  { label: 'ID', key: 'id' },
-  { label: 'Deal Name', key: 'name' },
-  { label: 'Account Name', key: 'accountName' },
-  { label: 'Status', key: 'status' },
-  { label: 'Amount', key: 'amount' },
-  { label: 'Created At', key: 'createdAt' }
-];
+const $toast = useToast();
 
 
+// Computed
 const deals = computed(() => {
   return dealsStore.deals;
 });
+
+const user = computed(() => usersStore.user);
+
+const header = computed(() => [
+  { label: 'ID', key: 'id' },
+  { label: t('General.PartnerID'), key: 'partnerId' },
+  { label: t('General.DealName'), key: 'name' },
+  { label: t('General.AccountName'), key: 'accountName' },
+  { label: t('General.Status'), key: 'status' },
+  { label: t('General.Amount'), key: 'amount' },
+  { label: t('General.CreatedAt'), key: 'createdAt' }
+]);
 
 const filteredDeals = computed(() => {
   const normalized = search.value.trim().toLowerCase()
 
   return deals.value.filter((deal: Deal) => {
+    // Filter By User
+    // Security note:
+    // This filtering is implemented on the frontend for UI purposes only.
+    // In real applications, access control must be enforced on the backend,
+    // as frontend logic can be bypassed by the user.
+    const matchesRole =
+      user.value?.role === UserRoles.Admin ||
+      deal.partnerId === user.value?.id;
+
     // Filter By Search
     const matchesSearch =
       !normalized ||
@@ -59,7 +77,6 @@ const filteredDeals = computed(() => {
       deal.accountName.toLowerCase().includes(normalized) ||
       deal.status.toLowerCase().includes(normalized) ||
       deal.id.toLowerCase().includes(normalized)
-
 
     // Filter By Status
     const matchesStatus = !filters.value.statuses.length || filters.value.statuses.includes(deal.status);
@@ -75,7 +92,7 @@ const filteredDeals = computed(() => {
     const matchesDate = (!fromDate || dealDate >= fromDate) && (!toDate || dealDate <= toDate);
 
 
-    return matchesSearch && matchesStatus && matchesAmount && matchesDate;
+    return matchesRole && matchesSearch && matchesStatus && matchesAmount && matchesDate;
   })
 });
 
@@ -109,7 +126,7 @@ const handleRowClick = (deal: Deal) => {
 
 const handleSearch = () => {
   console.log('search:', search.value)
-  // тут викликаєш store.fetchDeals()
+  // FETCH TO SERVER
 }
 
 const debouncedSearch = useDebounceFn(handleSearch, 300)
@@ -134,13 +151,21 @@ watch(search, () => {
   debouncedSearch()
 })
 
-onMounted(() => {
-  dealsStore.fetchDeals();
+onMounted(async () => {
+  try {
+    await dealsStore.fetchDeals();
+  } catch (error) {
+    if (error instanceof Error) {
+      $toast.error(error.message);
+    } else {
+      $toast.error(t('General.UnhandledError'));
+    }
+  }
 });
 </script>
 
 <template>
-  <div class="p-6 space-y-6">
+  <div class="p-0 sm:p-6 space-y-4 sm:space-y-6">
     <!-- Header -->
     <div class="flex items-center justify-between">
       <h2 class="text-2xl font-semibold">

@@ -8,6 +8,7 @@ export type DealBase = {
 }
 
 export type Deal = DealBase & {
-  id: string,
-  createdAt: Date,
+  id: string;
+  partnerId: number;
+  createdAt: Date;
 };

@@ -1,11 +1,12 @@
 <template>
-  <header class="flex items-center justify-between px-6 py-4 bg-white border-b shadow-sm">
+  <header class="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 bg-white border-b shadow-sm">
     <div class="flex items-center gap-4">
-      <h1 class="text-xl font-semibold text-gray-800">Acronis {{ language }}</h1>
+      <router-link to="/">
+        <h1 class="text-xl font-semibold text-gray-800">Acronis</h1>
+      </router-link>
     </div>
 
     <div class="flex items-center gap-4">
-
       <select
         v-model="language"
         class="px-3 py-2 border rounded-lg text-sm bg-gray-50 hover:bg-gray-100"
@@ -18,38 +19,48 @@
       </select>
 
       <select
-        v-model="role"
+        v-model="user"
         class="px-3 py-2 border rounded-lg text-sm bg-gray-50 hover:bg-gray-100"
       >
         <option
-          v-for="role in Object.values(UserRoles)"
-          :key="role"
-          :value="role"
+          v-for="user in users"
+          :key="user.id"
+          :value="user"
         >
-          {{ role }}
+          {{ user.role }} | {{ user.id }}
         </option>
       </select>
-
-      <div class="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold">
-        D
-      </div>
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { LANGUAGES } from "../../const/Languages.ts";
-import { UserRoles } from "../../enums/UserRoles.ts";
+import { i18n } from "../../../app/i18n";
+import { useUsersStore} from "../../../app/store";
+import { partner1, partner2, admin } from "../../const/Users.ts";
 
-const language = ref(LANGUAGES[0].value);
-const role = ref(UserRoles.Admin);
+const usersStore = useUsersStore();
 
-watch(language, (val) => {
-  console.log('Language changed:', val);
+type Locale = 'en' | 'de' | 'es' | 'ja';
+
+const language = ref<Locale>('en');
+
+// Computed
+const user = computed({
+  get: () => usersStore.user,
+  set: (value) => {
+    usersStore.setUser(value);
+  }
 });
 
-watch(role, (val) => {
-  console.log('Role changed:', val);
+const users = computed(() => {
+  return [partner1, partner2, admin]
+})
+
+
+watch(language, (val) => {
+  i18n.global.locale.value = val;
 });
 </script>

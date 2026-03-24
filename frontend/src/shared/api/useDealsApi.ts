@@ -1,25 +1,20 @@
 import type { Deal } from "../types/Deal.ts";
+import { handleError } from "../utils/HandleError.ts";
 
 export const useDealsApi = () => {
   const getDeals = async (): Promise<Deal[]> => {
-    const response = await fetch('http://localhost:3000/deals');
-
-    if(response.status !== 200) {
-      throw new Error('Failed to fetch deals');
-    }
-
+    const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
+    const response = await fetch(`${API_URL}/deals`);
+    if (!response.ok) handleError(response);
     const data = await response.json();
 
     return data ?? [];
   }
 
   const getDealById = async (id: string): Promise<Deal | undefined> => {
-    const response = await fetch(`http://localhost:3000/deals/${id}`);
-
-    if(response.status !== 200) {
-      throw new Error('Failed to fetch deal');
-    }
-
+    const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
+    const response = await fetch(`${API_URL}/deals/${id}`);
+    if (!response.ok) handleError(response);
     const data = await response.json();
 
     return data ?? null;

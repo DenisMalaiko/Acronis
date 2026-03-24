@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
-import type { Deal } from "../../../shared/types/Deal.ts";
 import { useDealsApi } from "../../../shared/api/useDealsApi.ts";
+import { deduplicateDeals } from "../../../shared/utils/DeduplicateDeals.ts";
+import type { Deal } from "../../../shared/types/Deal.ts";
 
 export const useDealsStore = defineStore('deals', {
   state: () => ({
@@ -18,9 +19,11 @@ export const useDealsStore = defineStore('deals', {
       this.error = null;
 
       try {
-        this.deals = await getDeals();
+        const deals = await getDeals();
+        this.deals = deduplicateDeals(deals);
       } catch (error) {
         this.error = error;
+        throw error;
       } finally {
         this.loading = false;
       }
@@ -35,6 +38,7 @@ export const useDealsStore = defineStore('deals', {
         this.deal = (await getDealById(id)) ?? null;
       } catch (error) {
         this.error = error;
+        throw error;
       } finally {
         this.loading = false;
       }

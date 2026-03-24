@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { defineProps, ref, computed} from "vue";
+import { useI18n } from "vue-i18n";
 
 type Header<T = any> = {
   label: string;
   key: keyof T & string;
 };
 
+const { t } = useI18n();
 
 const props = withDefaults(
   defineProps<{
@@ -41,49 +43,51 @@ const totalPages = computed(() => {
 
 <template>
   <div class="p-4">
-    <table class="w-full border border-gray-200 rounded-xl overflow-hidden">
-      <thead class="bg-gray-100 text-left">
-        <tr>
-          <th
-            v-for="col in props.header"
-            :key="String(col.key)"
-            class="p-3"
-          >
-            {{ col.label }}
-          </th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr
-          v-for="item in paginatedItems"
-          :key="item.id"
-          class="border-t hover:bg-gray-50 cursor-pointer"
-          @click="emit('row-click', item)"
-        >
-          <td
-            v-for="col in props.header"
-            :key="String(col.key)"
-            class="p-3"
-          >
-            <slot
-              :name="`cell-${String(col.key)}`"
-              :value="item[col.key]"
-              :row="item"
-              :column="col"
+    <div class="w-full overflow-x-auto">
+      <table class="min-w-[600px] w-full border border-gray-200 rounded-xl overflow-hidden">
+        <thead class="bg-gray-100 text-left">
+          <tr>
+            <th
+              v-for="col in props.header"
+              :key="String(col.key)"
+              class="p-3"
             >
-              {{ item[col.key] }}
-            </slot>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              {{ col.label }}
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            v-for="item in paginatedItems"
+            :key="item.id"
+            class="border-t hover:bg-gray-50 cursor-pointer"
+            @click="emit('row-click', item)"
+          >
+            <td
+              v-for="col in props.header"
+              :key="String(col.key)"
+              class="p-3"
+            >
+              <slot
+                :name="`cell-${String(col.key)}`"
+                :value="item[col.key]"
+                :row="item"
+                :column="col"
+              >
+                {{ item[col.key] }}
+              </slot>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
 
     <div class="flex items-center justify-between mt-4">
       <!-- Info -->
       <div class="text-sm text-gray-500">
-        Page {{ currentPage }} of {{ totalPages }}
+        {{ t('General.Pages') }} {{ currentPage }} {{ t('General.Of') }} {{ totalPages }}
       </div>
 
       <!-- Controls -->
@@ -93,7 +97,7 @@ const totalPages = computed(() => {
           :disabled="currentPage === 1"
           class="px-3 py-1 border rounded disabled:opacity-50 cursor-pointer"
         >
-          Prev
+          {{ t('General.Prev') }}
         </button>
 
         <button
@@ -101,7 +105,7 @@ const totalPages = computed(() => {
           :disabled="currentPage === totalPages"
           class="px-3 py-1 border rounded disabled:opacity-50 cursor-pointer"
         >
-          Next
+          {{ t('General.Next') }}
         </button>
       </div>
     </div>

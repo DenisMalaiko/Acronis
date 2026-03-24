@@ -8,7 +8,17 @@ export const deals: Deal[] = [
     accountName: "Acme Corp",
     status: DealStatus.Open,
     amount: 5000,
-    createdAt: new Date("2025-01-10"),
+    createdAt: new Date("2026-01-10"),
+    partnerId: 1,
+  },
+  {
+    id: "7f1a9b2e-3c4d-4a1f-8a2b-1e9d6c7b8a01",
+    name: "Website Redesign (Copy)",
+    accountName: "Acme Corp (Copy)",
+    status: DealStatus.Approved,
+    amount: 5000,
+    createdAt: new Date("2026-01-05"),
+    partnerId: 2,
   },
   {
     id: "2c9d5e1a-8b7f-4c3d-a2e1-9f6b7d8c1a02",
@@ -16,7 +26,8 @@ export const deals: Deal[] = [
     accountName: "Tech Solutions",
     status: DealStatus.Approved,
     amount: 12000,
-    createdAt: new Date("2025-02-15"),
+    createdAt: new Date("2026-02-15"),
+    partnerId: 1,
   },
   {
     id: "9a3c7b1d-5e2f-4a8b-b1c2-3d4e5f6a7b03",
@@ -24,7 +35,8 @@ export const deals: Deal[] = [
     accountName: "Marketing Pro",
     status: DealStatus.Rejected,
     amount: 3000,
-    createdAt: new Date("2025-03-05"),
+    createdAt: new Date("2026-03-05"),
+    partnerId: 2,
   },
   {
     id: "1b2c3d4e-5f6a-4b7c-8d9e-0a1b2c3d4e04",
@@ -32,7 +44,8 @@ export const deals: Deal[] = [
     accountName: "SalesForce Ltd",
     status: DealStatus.Open,
     amount: 8000,
-    createdAt: new Date("2025-03-20"),
+    createdAt: new Date("2026-03-20"),
+    partnerId: 1,
   },
   {
     id: "4e5f6a7b-8c9d-4a1b-b2c3-d4e5f6a7b805",
@@ -41,6 +54,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 15000,
     createdAt: new Date("2025-04-01"),
+    partnerId: 2,
   },
   {
     id: "6a7b8c9d-0e1f-4a2b-c3d4-e5f6a7b8c906",
@@ -49,6 +63,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 7000,
     createdAt: new Date("2025-04-12"),
+    partnerId: 1,
   },
   {
     id: "8c9d0e1f-2a3b-4c5d-d6e7-f8a9b0c1d207",
@@ -57,6 +72,7 @@ export const deals: Deal[] = [
     status: DealStatus.Rejected,
     amount: 11000,
     createdAt: new Date("2025-04-25"),
+    partnerId: 1,
   },
   {
     id: "0e1f2a3b-4c5d-4e6f-a7b8-c9d0e1f2a308",
@@ -65,6 +81,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 2500,
     createdAt: new Date("2025-05-03"),
+    partnerId: 2,
   },
   {
     id: "3b4c5d6e-7f8a-4b9c-b0d1-e2f3a4b5c409",
@@ -73,6 +90,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 9000,
     createdAt: new Date("2025-05-18"),
+    partnerId: 1,
   },
   {
     id: "5d6e7f8a-9b0c-4d1e-c2f3-a4b5c6d7e510",
@@ -81,6 +99,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 6000,
     createdAt: new Date("2025-06-01"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e001-4a2b-8c1d-000000000011",
@@ -89,6 +108,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 14000,
     createdAt: new Date("2025-06-05"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e002-4a2b-8c1d-000000000012",
@@ -97,6 +117,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 2200,
     createdAt: new Date("2025-06-07"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e003-4a2b-8c1d-000000000013",
@@ -105,6 +126,7 @@ export const deals: Deal[] = [
     status: DealStatus.Rejected,
     amount: 8000,
     createdAt: new Date("2025-06-10"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e004-4a2b-8c1d-000000000014",
@@ -113,6 +135,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 6000,
     createdAt: new Date("2025-06-12"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e005-4a2b-8c1d-000000000015",
@@ -121,6 +144,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 9000,
     createdAt: new Date("2025-06-14"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e006-4a2b-8c1d-000000000016",
@@ -129,6 +153,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 1800,
     createdAt: new Date("2025-06-16"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e007-4a2b-8c1d-000000000017",
@@ -137,6 +162,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 7500,
     createdAt: new Date("2025-06-18"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e008-4a2b-8c1d-000000000018",
@@ -145,6 +171,7 @@ export const deals: Deal[] = [
     status: DealStatus.Rejected,
     amount: 10000,
     createdAt: new Date("2025-06-20"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e009-4a2b-8c1d-000000000019",
@@ -153,6 +180,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 16000,
     createdAt: new Date("2025-06-22"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e010-4a2b-8c1d-000000000020",
@@ -161,6 +189,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 3000,
     createdAt: new Date("2025-06-25"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e011-4a2b-8c1d-000000000021",
@@ -169,6 +198,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 4500,
     createdAt: new Date("2025-06-27"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e012-4a2b-8c1d-000000000022",
@@ -177,6 +207,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 13000,
     createdAt: new Date("2025-07-01"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e013-4a2b-8c1d-000000000023",
@@ -185,6 +216,7 @@ export const deals: Deal[] = [
     status: DealStatus.Rejected,
     amount: 2000,
     createdAt: new Date("2025-07-03"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e014-4a2b-8c1d-000000000024",
@@ -193,6 +225,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 7000,
     createdAt: new Date("2025-07-05"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e015-4a2b-8c1d-000000000025",
@@ -201,6 +234,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 8500,
     createdAt: new Date("2025-07-08"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e016-4a2b-8c1d-000000000026",
@@ -209,6 +243,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 4000,
     createdAt: new Date("2025-07-10"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e017-4a2b-8c1d-000000000027",
@@ -217,6 +252,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 3200,
     createdAt: new Date("2025-07-12"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e018-4a2b-8c1d-000000000028",
@@ -225,6 +261,7 @@ export const deals: Deal[] = [
     status: DealStatus.Rejected,
     amount: 20000,
     createdAt: new Date("2025-07-15"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e019-4a2b-8c1d-000000000029",
@@ -233,6 +270,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 2700,
     createdAt: new Date("2025-07-17"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e020-4a2b-8c1d-000000000030",
@@ -241,6 +279,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 11000,
     createdAt: new Date("2025-07-20"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e021-4a2b-8c1d-000000000031",
@@ -249,6 +288,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 5000,
     createdAt: new Date("2025-07-22"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e022-4a2b-8c1d-000000000032",
@@ -257,6 +297,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 4200,
     createdAt: new Date("2025-07-25"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e023-4a2b-8c1d-000000000033",
@@ -265,6 +306,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 9500,
     createdAt: new Date("2025-07-27"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e024-4a2b-8c1d-000000000034",
@@ -273,6 +315,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 12500,
     createdAt: new Date("2025-07-30"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e025-4a2b-8c1d-000000000035",
@@ -281,6 +324,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 7800,
     createdAt: new Date("2025-08-02"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e026-4a2b-8c1d-000000000036",
@@ -289,6 +333,7 @@ export const deals: Deal[] = [
     status: DealStatus.Rejected,
     amount: 6400,
     createdAt: new Date("2025-08-05"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e027-4a2b-8c1d-000000000037",
@@ -297,6 +342,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 5200,
     createdAt: new Date("2025-08-07"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e028-4a2b-8c1d-000000000038",
@@ -305,6 +351,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 8900,
     createdAt: new Date("2025-08-10"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e029-4a2b-8c1d-000000000039",
@@ -313,6 +360,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 7600,
     createdAt: new Date("2025-08-12"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e030-4a2b-8c1d-000000000040",
@@ -321,6 +369,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 4800,
     createdAt: new Date("2025-08-15"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e031-4a2b-8c1d-000000000041",
@@ -329,6 +378,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 17000,
     createdAt: new Date("2025-08-18"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e032-4a2b-8c1d-000000000042",
@@ -337,6 +387,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 3100,
     createdAt: new Date("2025-08-20"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e033-4a2b-8c1d-000000000043",
@@ -345,6 +396,7 @@ export const deals: Deal[] = [
     status: DealStatus.Rejected,
     amount: 6700,
     createdAt: new Date("2025-08-22"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e034-4a2b-8c1d-000000000044",
@@ -353,6 +405,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 5400,
     createdAt: new Date("2025-08-25"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e035-4a2b-8c1d-000000000045",
@@ -361,6 +414,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 15000,
     createdAt: new Date("2025-08-28"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e036-4a2b-8c1d-000000000046",
@@ -369,6 +423,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 21000,
     createdAt: new Date("2025-08-30"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e037-4a2b-8c1d-000000000047",
@@ -377,6 +432,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 2900,
     createdAt: new Date("2025-09-02"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e038-4a2b-8c1d-000000000048",
@@ -385,6 +441,7 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 6100,
     createdAt: new Date("2025-09-05"),
+    partnerId: 2,
   },
   {
     id: "a1b2c3d4-e039-4a2b-8c1d-000000000049",
@@ -393,6 +450,7 @@ export const deals: Deal[] = [
     status: DealStatus.Approved,
     amount: 4300,
     createdAt: new Date("2025-09-08"),
+    partnerId: 1,
   },
   {
     id: "a1b2c3d4-e040-4a2b-8c1d-000000000050",
@@ -401,5 +459,6 @@ export const deals: Deal[] = [
     status: DealStatus.Open,
     amount: 7200,
     createdAt: new Date("2025-09-10"),
+    partnerId: 2,
   },
 ];
