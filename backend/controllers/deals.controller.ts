@@ -24,7 +24,7 @@ export const getDealById = async (req: any, res: any, id: string) => {
     const data: Deal | undefined = await getSingleDealById(id);
 
     if (!data) {
-      return sendResponse(res, 404, { message: 'Deal not found' })
+      return sendResponse(res, 404, { message: 'Deal not found BACKEND ERROR' })
     }
 
     return sendResponse(res, 200, data)

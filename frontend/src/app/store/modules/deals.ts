@@ -41,7 +41,11 @@ export const useDealsStore = defineStore('deals', {
         this.deals = deduplicateDeals(deals);
         this.lastFetched = now;
       } catch (error) {
-        this.error = error;
+        if (error instanceof Error) {
+          this.error = error.message;
+        } else {
+          this.error = 'Unknown error';
+        }
         throw error;
       } finally {
         this.loading = false;
@@ -56,7 +60,11 @@ export const useDealsStore = defineStore('deals', {
       try {
         this.deal = (await getDealById(id)) ?? null;
       } catch (error) {
-        this.error = error;
+        if (error instanceof Error) {
+          this.error = error.message;
+        } else {
+          this.error = 'Unknown error';
+        }
         throw error;
       } finally {
         this.loading = false;

@@ -30,5 +30,12 @@ export const de = {
   DealsView: {
     Title: 'Deal-Ansicht',
     NotFound: 'Angebot nicht gefunden'
+  },
+  Errors: {
+    NotFound: 'Nicht gefunden',
+    BadRequest: 'Ungültige Anfrage',
+    ServerError: 'Serverfehler',
+    RequestFailed: 'Anfrage fehlgeschlagen',
+    RequestTimeout: 'Zeitüberschreitung der Anfrage',
   }
 }

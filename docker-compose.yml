@@ -5,7 +5,11 @@ services:
     build: ./backend
     ports:
       - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
     container_name: deals-backend
+    command: npm run dev
 
   frontend:
     build: ./frontend

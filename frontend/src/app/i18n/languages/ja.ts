@@ -30,5 +30,12 @@ export const ja = {
   DealsView: {
     Title: '取引詳細',
     NotFound: '取引が見つかりません'
+  },
+  Errors: {
+    NotFound: '見つかりません',
+    BadRequest: '不正なリクエスト',
+    ServerError: 'サーバーエラー',
+    RequestFailed: 'リクエストに失敗しました',
+    RequestTimeout: 'リクエストがタイムアウトしました',
   }
 }

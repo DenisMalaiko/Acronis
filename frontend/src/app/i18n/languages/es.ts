@@ -30,5 +30,12 @@ export const es = {
   DealsView: {
     Title: 'Vista del trato',
     NotFound: 'Oferta no encontrada'
+  },
+  Errors: {
+    NotFound: 'No encontrado',
+    BadRequest: 'Solicitud incorrecta',
+    ServerError: 'Error del servidor',
+    RequestFailed: 'Solicitud fallida',
+    RequestTimeout: 'Tiempo de espera agotado',
   }
 }

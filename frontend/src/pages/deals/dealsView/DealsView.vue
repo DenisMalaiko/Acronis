@@ -90,7 +90,7 @@ onMounted(async () => {
     </div>
 
     <!-- Loading -->
-    <div v-if="loading" class="text-gray-500">
+    <div v-if="loading" class="text-gray-500 w-full text-center">
       {{ t('General.Loading') }}...
     </div>
 
@@ -100,12 +100,12 @@ onMounted(async () => {
       class="bg-red-50 border border-red-200 rounded-xl p-6 text-center"
     >
       <p class="text-red-600 font-medium">
-        {{ t('DealsView.NotFound') }}
+        {{ error }}
       </p>
 
       <button
         @click="goBack"
-        class="mt-4 px-4 py-2 border rounded-lg hover:bg-gray-100 cursor-pointer"
+        class="mt-4 mr-2 px-4 py-2 border rounded-lg hover:bg-gray-100 cursor-pointer"
       >
         {{ t('General.Back') }}
       </button>
