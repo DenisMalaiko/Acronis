@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia';
+import { i18n } from "../../i18n";
 import { useDealsApi } from "../../../shared/api/useDealsApi.ts";
 import { deduplicateDeals } from "../../../shared/utils/DeduplicateDeals.ts";
 import type { Deal } from "../../../shared/types/Deal.ts";
+
 
 export const useDealsStore = defineStore('deals', {
   state: () => ({
@@ -17,20 +19,11 @@ export const useDealsStore = defineStore('deals', {
     async fetchDeals() {
       const now = Date.now();
 
-      console.group("------------")
-      console.log("FETCH DEALS...")
-
       if (this.loading) return;
 
       if (this.lastFetched && now - this.lastFetched < 10000) {
-        console.log("DEALS ALREADY FETCHED")
-        console.groupEnd()
-
         return this.deals;
       }
-
-      console.log("START FETCHING DEALS...")
-      console.groupEnd()
 
       const { getDeals } = useDealsApi();
       this.loading = true;
@@ -44,7 +37,7 @@ export const useDealsStore = defineStore('deals', {
         if (error instanceof Error) {
           this.error = error.message;
         } else {
-          this.error = 'Unknown error';
+          this.error = i18n.global.t('Errors.UnhandledError');
         }
         throw error;
       } finally {
@@ -63,7 +56,7 @@ export const useDealsStore = defineStore('deals', {
         if (error instanceof Error) {
           this.error = error.message;
         } else {
-          this.error = 'Unknown error';
+          this.error = i18n.global.t('Errors.UnhandledError');
         }
         throw error;
       } finally {

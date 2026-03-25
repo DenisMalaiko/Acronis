@@ -42,30 +42,21 @@ const getStatusColor = (status: DealStatus) => {
   }
 }
 
-const retry = async () => {
+const fetchDeal = async () => {
   try {
     const dealId = router.currentRoute.value.params.id;
     await dealsStore.fetchDealById(dealId as string);
   } catch (error) {
-    if (error instanceof Error) {
-      $toast.error(error.message);
-    } else {
-      $toast.error(t('General.UnhandledError'));
-    }
+    $toast.error(error instanceof Error ? error.message : t('General.UnhandledError'));
   }
+};
+
+const retry = async () => {
+  await fetchDeal()
 }
 
 onMounted(async () => {
-  try {
-    const dealId = router.currentRoute.value.params.id;
-    await dealsStore.fetchDealById(dealId as string);
-  } catch (error) {
-    if (error instanceof Error) {
-      $toast.error(error.message);
-    } else {
-      $toast.error(t('General.UnhandledError'));
-    }
-  }
+  await fetchDeal()
 })
 
 </script>

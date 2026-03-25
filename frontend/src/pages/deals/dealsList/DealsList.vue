@@ -125,34 +125,20 @@ const handleRowClick = (deal: Deal) => {
   router.push(`/deals/${deal.id}`);
 };
 
-const handleSearch = async () => {
-  console.group("------------")
-  console.log("SEARCHING...")
-  console.groupEnd()
+const fetchDeals = async () => {
   try {
     await dealsStore.fetchDeals();
   } catch (error) {
-    if (error instanceof Error) {
-      $toast.error(error.message);
-    } else {
-      $toast.error(t('General.UnhandledError'));
-    }
+    $toast.error(error instanceof Error ? error.message : t('General.UnhandledError'));
   }
+};
+
+const handleSearch = async () => {
+  await fetchDeals()
 }
 
 const retry = async () => {
-  try {
-    console.group("------------")
-    console.log("RETRYING...")
-    console.groupEnd()
-    await dealsStore.fetchDeals();
-  } catch (error) {
-    if (error instanceof Error) {
-      $toast.error(error.message);
-    } else {
-      $toast.error(t('General.UnhandledError'));
-    }
-  }
+  await fetchDeals()
 };
 
 const debouncedSearch = useDebounceFn(handleSearch, 500)
@@ -178,32 +164,10 @@ watch(search, () => {
 })
 
 onMounted(async () => {
-  try {
-    console.group("------------")
-    console.log("MOUNTED...")
-    console.groupEnd()
-    await dealsStore.fetchDeals();
-  } catch (error) {
-    if (error instanceof Error) {
-      $toast.error(error.message);
-    } else {
-      $toast.error(t('General.UnhandledError'));
-    }
-  }
+  await fetchDeals()
 
   interval = setInterval(async () => {
-    try {
-      console.group("------------")
-      console.log("POLLING...")
-      console.groupEnd()
-      await dealsStore.fetchDeals();
-    } catch (error) {
-      if (error instanceof Error) {
-        $toast.error(error.message);
-      } else {
-        $toast.error(t('General.UnhandledError'));
-      }
-    }
+    await fetchDeals()
   }, pollingTime.value);
 });
 
